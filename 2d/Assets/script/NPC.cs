@@ -15,34 +15,38 @@ public class NPC : MonoBehaviour
 
     public float textSpeed;
     private bool close;
+    private bool trigg;
    
     void Update()
     {
-        
-        if (close == true && Input.GetKeyDown(KeyCode.Space))
+        if(trigg == true)
         {
-            
-            close = false;
-            if (a <= 0)
+            if (close == true && Input.GetKeyDown(KeyCode.Space))
             {
-                if (dialogPanel.activeInHierarchy)
-                {
-                    ZeroText();
-                }
-                else
-                {
-                    dialogPanel.SetActive(true);
-                    StartCoroutine(ShowText());
-                }
-            }
-            
-             
-        }
 
-        else if (close == false && Input.GetKeyDown(KeyCode.Space))
-        {
-            nextLine();
+                close = false;
+                if (a <= 0)
+                {
+                    if (dialogPanel.activeInHierarchy)
+                    {
+                        ZeroText();
+                    }
+                    else
+                    {
+                        dialogPanel.SetActive(true);
+                        StartCoroutine(ShowText());
+                    }
+                }
+
+
+            }
+
+            else if (close == false && Input.GetKeyDown(KeyCode.Space))
+            {
+                nextLine();
+            }
         }
+        
 
     }
 
@@ -84,6 +88,7 @@ public class NPC : MonoBehaviour
     {
             if (collision.CompareTag("Player"))
             {
+                trigg = true;
                 close = true;
                 ZeroText();
             }
@@ -95,6 +100,7 @@ public class NPC : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             close = false;
+            trigg = false;
             ZeroText();
         }
     }
