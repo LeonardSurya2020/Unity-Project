@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NPC : MonoBehaviour
 {
     
     public GameObject dialogPanel;
-    
+    public TextMeshProUGUI dialogueText;
     public Text dialogText;
     public string[] dialogue;
     public int index;
@@ -16,7 +17,11 @@ public class NPC : MonoBehaviour
     public float textSpeed;
     private bool close;
     private bool trigg;
-   
+
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         if(trigg == true)
@@ -55,7 +60,7 @@ public class NPC : MonoBehaviour
        if (index < dialogue.Length - 1)
        {
           index++;
-          dialogText.text = "";
+          dialogueText.text = "";
           StartCoroutine(ShowText());
        }
        else
@@ -67,7 +72,7 @@ public class NPC : MonoBehaviour
 
     public void ZeroText()
     {
-        dialogText.text = "";
+        dialogueText.text = "";
         index = 0;
         dialogPanel.SetActive(false);
         close = true;
@@ -78,7 +83,7 @@ public class NPC : MonoBehaviour
         
         foreach (char letter in dialogue[index].ToCharArray())
         {
-            dialogText.text += letter;
+            dialogueText.text += letter;
             yield return new WaitForSeconds(textSpeed);
         }
 
